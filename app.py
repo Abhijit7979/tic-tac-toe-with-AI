@@ -110,53 +110,6 @@ def get_best_move(board):
             best_score = score
             best_move = (i, j)
     return best_move
-
-def play_game():
-    """
-    Main function to play the Tic-Tac-Toe game.
-    """
-    board = [[EMPTY] * 3 for _ in range(3)]
-    
-    while True:
-        print_board(board)
-        
-        # Human player's turn
-        while True:
-            try:
-                row, col = map(int, input("Enter your move (row col): ").split())
-                if 0 <= row < 3 and 0 <= col < 3 and board[row][col] == EMPTY:
-                    board[row][col] = HUMAN
-                    break
-                else:
-                    print("Invalid move. Try again.")
-            except ValueError:
-                print("Invalid input. Please enter two numbers separated by a space.")
-        
-        if is_winner(board, HUMAN):
-            print_board(board)
-            print("You win!")
-            break
-        
-        if is_board_full(board):
-            print_board(board)
-            print("It's a tie!")
-            break
-        
-        # AI player's turn
-        print("AI is thinking...")
-        row, col = get_best_move(board)
-        board[row][col] = AI
-        
-        if is_winner(board, AI):
-            print_board(board)
-            print("AI wins!")
-            break
-        
-        if is_board_full(board):
-            print_board(board)
-            print("It's a tie!")
-            break
-
 @app.route('/')
 def index():
     """Render the game board."""
